@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { getAllItems } from '@/services/itemService'
 import { NavLink } from 'react-router-dom'
+import { useAuthContext } from '@/hooks/useAuth'
+import ImageComponent from '@/components/Image/Image'
 import './Home.css'
 
 const Home = () => {
   const [itemsData, setItemsData] = useState(null)
+  const { isAuth } = useAuthContext()
 
   useEffect(() => {
     const fetchItemData = async () => {
@@ -19,17 +22,42 @@ const Home = () => {
     }
     fetchItemData()
   }, [])
+
+  const Advertencia = () => {
+    window.alert('Para agregar el producto debes iniciar sesion')
+  }
+
+  const placeholderImage = '@/assets/Logo.png'
+
   return (
     <div>
       <p className='header'>Products</p>
       <div className='container'>
         {itemsData && itemsData.map((product) => (
           <div className='card' style={{ width: '18rem' }} key={product.id}>
-            <img className='card-img-top' style={{ maxHeight: '200px' }} src={product.image} alt={product.product_name} />
+            <ImageComponent
+              className='card-img-top'
+              style={{ maxHeight: '200px' }}
+              src={product.image}
+              alt={product.product_name}
+              noFoundSrc={placeholderImage}
+            />
             <div className='card-body'>
               <div className='body'>
-                <h5 className='card-title'>{product.product_name}</h5>
-                <NavLink to='/shopping/card' className='plus'>+</NavLink>
+                <NavLink to='/detail' className='card-title'>
+                  <h5>{product.product_name} </h5>
+                </NavLink>
+                {isAuth
+                  ? (
+                    <>
+                      <NavLink to='/shopping/card' className='plus'>+</NavLink>
+                    </>
+                    )
+                  : (
+                    <>
+                      <NavLink to='/login' className='plus' onClick={Advertencia}>+</NavLink>
+                    </>
+                    )}
               </div>
               <p className='price'>${product.price}</p>
             </div>

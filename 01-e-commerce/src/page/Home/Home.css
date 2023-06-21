@@ -30,6 +30,11 @@
     justify-content: space-between;
 }
 
+.card-title{
+    text-decoration: none;
+    color: rgb(0,0,0);
+}
+
 .plus{
     text-decoration: none;
     text-align: center;
