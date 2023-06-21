@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { getAllItems } from '@/services/itemService'
 import { NavLink } from 'react-router-dom'
 import { useAuthContext } from '@/hooks/useAuth'
-import ImageComponent from '@/components/Image/Image'
+import ImageComponent from '@/components/Image'
+import Foto from '../../assets/Unavailable.png'
 import './Home.css'
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
     window.alert('Para agregar el producto debes iniciar sesion')
   }
 
-  const placeholderImage = '@/assets/Logo.png'
+  const placeholderImage = Foto
 
   return (
     <div>
@@ -40,7 +41,7 @@ const Home = () => {
               style={{ maxHeight: '200px' }}
               src={product.image}
               alt={product.product_name}
-              noFoundSrc={placeholderImage}
+              notFoundSrc={placeholderImage}
             />
             <div className='card-body'>
               <div className='body'>
