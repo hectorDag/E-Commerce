@@ -1,0 +1,52 @@
+@mixin navbar-link {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    letter-spacing: 2px;
+}
+
+@mixin navbar-hover {
+    color: rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+
+.navbar {
+    background-color: rgb(138, 117, 90);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__logo{
+        @include navbar-link;
+        font-size: 20px;
+        padding-left: 10px;
+    }
+
+    &__navegation{
+        display: flex;
+        flex-wrap: nowrap;
+        column-gap: 20px;
+        padding-right: 10px;
+    }
+
+    &__link{
+        @include navbar-link;
+
+        &--is-active {
+            @include navbar-hover;
+        }
+
+        &:hover{
+            @include navbar-hover;
+        }
+    }
+
+    &__search{
+        display: flex;
+
+        &-bar{
+            border: none;
+            border-radius: 25rem;
+        }
+    }
+}
