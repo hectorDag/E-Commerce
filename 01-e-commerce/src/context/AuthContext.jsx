@@ -5,11 +5,21 @@ const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [userPayload, setUserPayload] = useState(null)
+
+  function AuthRole (token) {
+    if (token.role === 'ADMIN') {
+      setIsAdmin(true)
+    } else {
+      setIsAdmin(false)
+    }
+  }
 
   const login = (token) => {
     localStorage.setItem('token', token)
     const decoded = jwtDecode(token)
+    AuthRole(decoded)
     setUserPayload(decoded)
     setIsAuth(true)
   }
@@ -30,7 +40,7 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isAuth, userPayload, login, logout }}>
+    <AuthContext.Provider value={{ isAuth, userPayload, isAdmin, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

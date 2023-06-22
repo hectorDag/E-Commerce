@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAllItems } from '@/services/itemService'
 import { useAuthContext } from '@/hooks/useAuth'
-import { useIdContext } from '@/hooks/useIdContext'
 import { NavLink } from 'react-router-dom'
 import ImageComponent from '@/components/Image'
 import Foto from '@/assets/Unavailable.png'
@@ -10,7 +9,6 @@ import './Home.css'
 const Home = () => {
   const [itemsData, setItemsData] = useState(null)
   const { isAuth } = useAuthContext()
-  const { setSelectedProduct } = useIdContext()
 
   useEffect(() => {
     const fetchItemData = async () => {
@@ -47,8 +45,8 @@ const Home = () => {
             />
             <div className='card-body'>
               <div className='body'>
-                <NavLink to='/detail' className='card-title'>
-                  <h5 onClick={() => { setSelectedProduct(product.id) }}>{product.product_name} </h5>
+                <NavLink to={`/detail/:$${product.id}`} className='card-title'>
+                  <h5>{product.product_name} </h5>
                 </NavLink>
                 {isAuth
                   ? (

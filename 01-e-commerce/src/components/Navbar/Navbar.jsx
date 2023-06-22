@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 
 const Navbar = () => {
-  const { logout, isAuth } = useAuthContext()
+  const { logout, isAuth, isAdmin } = useAuthContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'navbar__link navbar__link--is-active' : 'navbar__link'
@@ -15,6 +15,10 @@ const Navbar = () => {
       <NavLink className='navbar__logo'>Best-Sales</NavLink>
 
       <div className='navbar__navegation'>
+
+        {isAuth
+          ? (<>{isAdmin ? (<NavLink className='navbar__admin'>Modo Admin: ACTIVADO</NavLink>) : (<></>)}</>)
+          : (<></>)}
 
         <NavLink to='/' className={({ isActive }) => linkIsActive(isActive)}>Home</NavLink>
 
