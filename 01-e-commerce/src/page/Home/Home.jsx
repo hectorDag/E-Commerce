@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { getAllItems } from '@/services/itemService'
+import { useListaContext } from '@/hooks/useLista'
 import { useAuthContext } from '@/hooks/useAuth'
+import { getAllItems } from '@/services/itemService'
+import { useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import ImageComponent from '@/components/Image'
 import Foto from '@/assets/Unavailable.png'
 import './Home.css'
 
 const Home = () => {
-  const [itemsData, setItemsData] = useState()
+  const { setListaOriginal, listaFiltrada } = useListaContext()
   const { isAuth, isAdmin } = useAuthContext()
 
   useEffect(() => {
@@ -15,14 +16,14 @@ const Home = () => {
       try {
         const response = await getAllItems()
         if (response.status === 200) {
-          setItemsData(response.data)
+          setListaOriginal(response.data)
         }
       } catch (error) {
         console.log('Ocurrio un error:', error.message)
       }
     }
     fetchItemData()
-  }, [])
+  }, [setListaOriginal])
 
   const Advertencia = () => {
     window.alert('Para agregar el producto debes iniciar sesion')
@@ -34,7 +35,7 @@ const Home = () => {
     <div>
       <p className='header'>Products</p>
       <div className='container'>
-        {itemsData && itemsData.map((product) => (
+        {listaFiltrada && listaFiltrada.map((product) => (
           <div className='card' style={{ width: '18rem' }} key={product.id}>
             <ImageComponent
               className='card-img-top'

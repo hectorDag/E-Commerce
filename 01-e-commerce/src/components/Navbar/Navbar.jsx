@@ -1,9 +1,16 @@
 import { useAuthContext } from '@/hooks/useAuth'
+import { useListaContext } from '../../hooks/useLista'
 import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 
 const Navbar = () => {
   const { logout, isAuth, isAdmin } = useAuthContext()
+  const { valorBusqueda, handleBuscar } = useListaContext()
+
+  const handleChange = (event) => {
+    const valor = event.target.value
+    handleBuscar(valor.toLowerCase())
+  }
 
   const linkIsActive = (isActive) => {
     return isActive ? 'navbar__link navbar__link--is-active' : 'navbar__link'
@@ -36,7 +43,7 @@ const Navbar = () => {
             )}
 
         <div className='navbar__search'>
-          <input className='navbar__search-bar' id='buscador' type='text' />
+          <input className='navbar__search-bar' type='text' value={valorBusqueda} onChange={handleChange} placeholder='Buscar' />
         </div>
 
       </div>

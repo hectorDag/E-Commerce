@@ -1,6 +1,7 @@
+import { NavLink, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getSingleItem } from '@/services/itemService'
-import { useParams } from 'react-router-dom'
+import { useAuthContext } from '@/hooks/useAuth'
 import ImageComponent from '@/components/Image'
 import Foto from '@/assets/Unavailable.png'
 import './Detail.css'
@@ -10,6 +11,7 @@ const Detail = () => {
   const [itemPrice, setItemPrice] = useState()
   const [itemImage, setItemImage] = useState()
   const [itemDescription, setItemDescription] = useState()
+  const { isAuth } = useAuthContext()
   const placeholderImage = Foto
   const { id } = useParams()
 
@@ -42,7 +44,9 @@ const Detail = () => {
 
           <section className='button-price'>
             <p>${itemPrice}</p>
-            <button className='btn btn-primary'>Buy</button>
+            {isAuth
+              ? (<NavLink to='' className='btn btn-primary'>Buy</NavLink>)
+              : (<NavLink to='/login' className='btn btn-primary'>Buy</NavLink>)}
           </section>
 
         </div>
