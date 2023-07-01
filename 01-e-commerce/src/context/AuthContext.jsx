@@ -8,18 +8,17 @@ const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false)
   const [userPayload, setUserPayload] = useState(null)
 
-  function AuthRole (token) {
+  /* function AuthRole (token) {
     if (token.role === 'ADMIN') {
       setIsAdmin(true)
     } else {
       setIsAdmin(false)
     }
-  }
+  } */
 
   const login = (token) => {
     localStorage.setItem('token', token)
     const decoded = jwtDecode(token)
-    AuthRole(decoded)
     setUserPayload(decoded)
     setIsAuth(true)
   }
@@ -36,6 +35,11 @@ const AuthProvider = ({ children }) => {
       const decoded = jwtDecode(token)
       setUserPayload(decoded)
       setIsAuth(true)
+      if (decoded.role === 'ADMIN') {
+        setIsAdmin(true)
+      } else {
+        setIsAdmin(false)
+      }
     }
   }, [])
 

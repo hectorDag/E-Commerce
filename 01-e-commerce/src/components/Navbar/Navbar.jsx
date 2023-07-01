@@ -36,7 +36,7 @@ const Navbar = () => {
             )}
 
         <div className='navbar__search'>
-          <input className='navbar__search-bar' type='text' placeholder='' />
+          <input className='navbar__search-bar' id='buscador' type='text' />
         </div>
 
       </div>
@@ -44,5 +44,3 @@ const Navbar = () => {
   )
 }
 export default Navbar
-
-// <button className='navbar__search-button' />

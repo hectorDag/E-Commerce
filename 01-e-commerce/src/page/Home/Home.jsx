@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { getAllItems } from '@/services/itemService'
 import { useAuthContext } from '@/hooks/useAuth'
-import { NavLink } from 'react-router-dom'
 import ImageComponent from '@/components/Image'
 import Foto from '@/assets/Unavailable.png'
 import './Home.css'
 
 const Home = () => {
-  const [itemsData, setItemsData] = useState(null)
-  const { isAuth } = useAuthContext()
+  const [itemsData, setItemsData] = useState()
+  const { isAuth, isAdmin } = useAuthContext()
 
   useEffect(() => {
     const fetchItemData = async () => {
@@ -45,22 +45,30 @@ const Home = () => {
             />
             <div className='card-body'>
               <div className='body'>
-                <NavLink to={`/detail/:$${product.id}`} className='card-title'>
+                <NavLink to={`/detail/:${product.id}`} className='card-title'>
                   <h5>{product.product_name} </h5>
                 </NavLink>
                 {isAuth
-                  ? (
-                    <>
-                      <NavLink to='/shopping/card' className='plus'>+</NavLink>
-                    </>
-                    )
-                  : (
-                    <>
-                      <NavLink to='/login' className='plus' onClick={Advertencia}>+</NavLink>
-                    </>
-                    )}
+                  ? (<><NavLink to='/shopping/card' className='plus'>+</NavLink></>)
+                  : (<><NavLink to='/login' className='plus' onClick={Advertencia}>+</NavLink></>)}
               </div>
-              <p className='price'>${product.price}</p>
+              <div className='body'>
+                <p className='price'>${product.price}</p>
+                <section className='caontainer-admin'>
+                  {isAuth
+                    ? (
+                      <>{isAdmin
+                        ? (
+                          <>
+                            <NavLink className='admin-buttom'>add</NavLink>
+                            <NavLink className='admin-buttom'>delete</NavLink>
+                          </>
+                          )
+                        : (<></>)}
+                      </>)
+                    : (<></>)}
+                </section>
+              </div>
             </div>
           </div>
         ))}
