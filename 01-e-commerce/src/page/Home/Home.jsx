@@ -39,7 +39,7 @@ const Home = () => {
           <div className='card' style={{ width: '18rem' }} key={product.id}>
             <ImageComponent
               className='card-img-top'
-              style={{ maxHeight: '200px' }}
+              style={{ maxHeight: '200px', minHeight: '200px' }}
               src={product.image}
               alt={product.product_name}
               notFoundSrc={placeholderImage}
@@ -50,7 +50,7 @@ const Home = () => {
                   <h5>{product.product_name} </h5>
                 </NavLink>
                 {isAuth
-                  ? (<><NavLink to='/shopping/card' className='plus'>+</NavLink></>)
+                  ? (<><NavLink to='' className='plus'>+</NavLink></>)
                   : (<><NavLink to='/login' className='plus' onClick={Advertencia}>+</NavLink></>)}
               </div>
               <div className='body'>
@@ -61,8 +61,7 @@ const Home = () => {
                       <>{isAdmin
                         ? (
                           <>
-                            <NavLink className='admin-buttom'>add</NavLink>
-                            <NavLink className='admin-buttom'>delete</NavLink>
+                            <NavLink to='/add' className='admin-buttom'>add</NavLink>
                           </>
                           )
                         : (<></>)}
