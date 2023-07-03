@@ -3,7 +3,7 @@ import { useAuthContext } from '@/hooks/useAuth'
 import Home from '../page/Home'
 import Login from '../page/Login'
 import SignUp from '../page/SignUp'
-import Card from '../page/ShoppingCard'
+import Cart from '../page/ShoppingCart'
 import Detail from '../page/Detail/Detail'
 import Add from '../page/Add'
 
@@ -16,8 +16,8 @@ const RoutesIndex = () => {
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />
       <Route
-        path='/shopping/card' element={isAuth
-          ? (<><Card /></>)
+        path='/shopping/cart' element={isAuth
+          ? (<><Cart /></>)
           : (<><Navigate to='/login' /></>)}
       />
       <Route path='/detail/:id' element={<Detail />} />

@@ -32,7 +32,7 @@ const Navbar = () => {
         {isAuth
           ? (
             <>
-              <NavLink to='/shopping/card' className='navbar__link'>Shopping Card</NavLink>
+              <NavLink to='/shopping/cart' className='navbar__link'>Shopping Card</NavLink>
               <NavLink to='/' className='navbar__link' onClick={logout}>Logout</NavLink>
             </>
             )

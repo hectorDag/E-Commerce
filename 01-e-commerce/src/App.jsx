@@ -4,19 +4,23 @@ import { ListaProvider } from './context/ListaContext'
 import RoutesIndex from './routes'
 import Navbar from './components/Navbar'
 import './App.css'
+import { CartProvider } from './context/CartContext'
 
 function App () {
   return (
     <>
-      <ListaProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <Navbar />
-            <RoutesIndex />
-          </BrowserRouter>
-        </AuthProvider>
-      </ListaProvider>
+      <CartProvider>
+        <ListaProvider>
+          <AuthProvider>
+            <BrowserRouter>
+              <Navbar />
+              <RoutesIndex />
+            </BrowserRouter>
+          </AuthProvider>
+        </ListaProvider>
+      </CartProvider>
     </>
+
   )
 }
 

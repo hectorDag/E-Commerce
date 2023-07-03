@@ -1,5 +1,6 @@
 import { useListaContext } from '@/hooks/useLista'
 import { useAuthContext } from '@/hooks/useAuth'
+import { useCartContext } from '@/hooks/useCart'
 import { getAllItems } from '@/services/itemService'
 import { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -10,6 +11,7 @@ import './Home.css'
 const Home = () => {
   const { setListaOriginal, listaFiltrada } = useListaContext()
   const { isAuth, isAdmin } = useAuthContext()
+  const { handleClick } = useCartContext()
 
   useEffect(() => {
     const fetchItemData = async () => {
@@ -50,7 +52,7 @@ const Home = () => {
                   <h5>{product.product_name} </h5>
                 </NavLink>
                 {isAuth
-                  ? (<><NavLink to='' className='plus'>+</NavLink></>)
+                  ? (<><NavLink onClick={() => handleClick(product)} className='plus'>+</NavLink></>)
                   : (<><NavLink to='/login' className='plus' onClick={Advertencia}>+</NavLink></>)}
               </div>
               <div className='body'>
